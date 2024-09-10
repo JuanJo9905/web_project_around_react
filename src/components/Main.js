@@ -1,49 +1,23 @@
-import { useState, useEffect } from "react";
-import api from "../utils/api";
+import { useContext } from "react";
 import Card from "./Card.js";
+import { currentUserContext } from "../contexts/CurrentUserContext.js";
 
 export default function Main(props){
-    const[userName, setUserName] = useState("");
-    const[userDescription, setUserDescription] = useState("");
-    const[userAvatar, setUserAvatar] = useState("");
-    const[cards, setCards] = useState([]);
 
-
-    useEffect(()=>{
-      async function getProfileInfo(){
-        const response = await api.getUserInfo();
-        setUserName(response.name);
-        setUserDescription(response.about);
-        setUserAvatar(response.avatar);
-
-      }
-      getProfileInfo();
-    },[]);
-
-    useEffect(()=>{
-      async function getCards(){
-        const response = await api.getInitialCards();
-        console.log(response);
-        setCards(response);
-      }
-      getCards();
-    },[]);
-
-
-
+  const currentUser = useContext(currentUserContext);
   return(
       <main className="content">
         <section className="explorer">
           <div className="content__explorer">
-            <div className="content__explorer-image" style={{ backgroundImage: `url(${userAvatar})` }}>
+            <div className="content__explorer-image" style={{ backgroundImage: `url(${currentUser.avatar})` }}>
               <button className="content__explorer-image-button" onClick={props.onEditAvatarClick}></button>
             </div>
             <div className="content__explorer-info">
               <div className="content__explorer-info-top">
-                <h2 className="content__explorer-name">{userName}</h2>
+                <h2 className="content__explorer-name">{currentUser.name}</h2>
                 <button className="content__explorer-edit-enable" onClick={props.onEditProfileClick}></button>
               </div>
-              <h3 className="content__explorer-job">{userDescription}</h3>
+              <h3 className="content__explorer-job">{currentUser.about}</h3>
             </div>
             <button className="content__explorer-add-enable" onClick={props.onAddPlaceClick}>+</button>
           </div>
@@ -51,7 +25,7 @@ export default function Main(props){
         <section className="grid">
 
           <div className="content__grid">
-              {cards.map((card) => (
+              {props.cards.map((card) => (
                 <Card 
                   onCardClick = {props.onCardClick}
                   card = {card}
@@ -59,6 +33,8 @@ export default function Main(props){
                   name={card.name} 
                   likes={card.likes} 
                   link={card.link}
+                  onCardLike = {props.onCardLike}
+                  onCardDelete = {props.onCardDelete}
                 />
               ))}
           </div>

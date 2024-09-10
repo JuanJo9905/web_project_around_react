@@ -10,7 +10,7 @@ export default function PopUpWithForm(props) {
         <div className="popup__overlay"></div>
         <div className="popup__window">
         <h2 className="popup__window-title">{props.title}</h2>
-        <form action="submit" className={`popup__window-form popup__form__${props.name}`} name={props.name}>
+        <form action="submit" className={`popup__window-form popup__form__${props.name}`} name={props.name} onSubmit={props.onSubmit}>
             {props.children}
             <button
             type="submit"

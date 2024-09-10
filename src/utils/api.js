@@ -1,7 +1,8 @@
 class Api {
     constructor(options) {
-      this._baseUrl = options.baseUrl;
-      this._headers = options.headers;
+      this._address = options.address;
+      this._groupId = options.groupId
+      this._token = options.token;
     }
   
     _checkResponse(res) {
@@ -30,63 +31,77 @@ class Api {
     }
   
     setUserInfo(data) {
-      return fetch(`${this._baseUrl}`, {
+      return fetch(`https://around.nomoreparties.co/v1/web_es_11/users/me`, {
         method: 'PATCH',
-        headers: this._headers,
+        headers: 
+        {
+          'Authorization':'2b046d27-e300-4552-a820-76fed2ad182a',
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify(data)
       })
         .then(this._checkResponse);
     }
   
-    addCard(data) {
-      console.log(`URL: ${this._baseUrl}`)
-      console.log(`HEADERS: ${this._headers}`)
-      console.log(`BODY: ${JSON.stringify(data)}`)
-  
-      return fetch(`${this._baseUrl}`, {
+    addCard(data) {  
+      return fetch(`https://around.nomoreparties.co/v1/${this._groupId}/cards`, {
         method: 'POST',
-        headers: this._headers,
+        headers:     
+        {
+          'Authorization': this._token,
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify(data)
       })
         .then(this._checkResponse);
     }
   
     deleteCard(cardId) {
-      return fetch(`${this._baseUrl}`, {
+      return fetch(`https://around.nomoreparties.co/v1/web_es_11/cards/${cardId}`, {
         method: 'DELETE',
-        headers: this._headers
+        headers: {'Authorization':'2b046d27-e300-4552-a820-76fed2ad182a'}
       })
         .then(this._checkResponse);
     }
   
+    changeLikeCardStatus(cardId, isLiked){
+      if(isLiked){
+        return this.dislikeCard(cardId);
+      }else{
+        return this.likeCard(cardId)
+      }
+    }
     likeCard(cardId) {
-      return fetch(`${this._baseUrl}`, {
+      return fetch(`https://around.nomoreparties.co/v1/web_es_11/cards/likes/${cardId}`, {
         method: 'PUT',
-        headers: this._headers
+        headers: {'Authorization':'2b046d27-e300-4552-a820-76fed2ad182a'}
       })
         .then(this._checkResponse);
     }
   
     dislikeCard(cardId) {
-      return fetch(`${this._baseUrl}`, {
+      return fetch(`https://around.nomoreparties.co/v1/web_es_11/cards/likes/${cardId}`, {
         method: 'DELETE',
-        headers: this._headers
+        headers: {'Authorization':'2b046d27-e300-4552-a820-76fed2ad182a'}
       })
         .then(this._checkResponse);
     }
   
     updateAvatar(data) {
-      return fetch(`${this._baseUrl}`, {
+      data = JSON.stringify({'avatar': data})
+      return fetch(`https://around.nomoreparties.co/v1/web_es_11/users/me/avatar`, {
         method: 'PATCH',
-        headers: this._headers,
-        body: JSON.stringify(data)
+        headers:     
+        {
+          'Authorization': '2b046d27-e300-4552-a820-76fed2ad182a',
+          "Content-Type": "application/json"
+        },
+        body: data
       })
         .then(this._checkResponse);
     }
   }
   
-  
-
 const api = new Api({
     address: 'https://nomoreparties.co',
     groupId: `web_es_11`,

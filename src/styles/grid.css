@@ -46,6 +46,10 @@
   cursor: pointer;
 }
 
+.content__grid-image-delete-hidden{
+  visibility: hidden;
+}
+
 
 .content__grid-card-description {
   display: flex; 
