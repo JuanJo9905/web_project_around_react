@@ -185,6 +185,23 @@
 
 }
 
+@media screen and (max-width: 650px) {
+  .content__grid {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2%;
+    max-width: 880px;
+    padding-bottom: 5%;
+    width: 100%;
+    left: 0;
+  }
+  .content__grid-card{
+    width: 95%;
+  }
+
+}
+
 @media screen and (max-width: 500px) {
   .content__grid {
     grid-template-columns: 1fr;

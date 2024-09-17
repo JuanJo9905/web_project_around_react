@@ -140,14 +140,33 @@
   padding-left: 3%;
 }
 
-@media screen and (max-width: 500px) {
+
+@media screen and (max-width: 800px) {
+  .content__explorer-name,.content__explorer-job{
+    font-size: 3vw;
+  }
+}
+.content__explorer-edit-enable{
+  height: 3.5vw;
+  width: 5vw;
+  margin-bottom: 0;
+}
+.content__explorer-add-enable{
+  margin-top: 25px;
+}
+
+
+@media screen and (max-width: 600px) {
 
   .content__explorer-image{
-    width: 50px;
+    width: 100px;
     height: 100px;
   }
   .content__explorer-image-image{
     width: 40vw;
+  }
+  .content__explorer-image-button {
+    width: 100px;
   }
 
   .content__explorer-info-top{
@@ -159,6 +178,7 @@
 
   .content__explorer-edit-enable{
     height: 6vw;
+    margin-bottom: 0;
   }
 
   .content__explorer{

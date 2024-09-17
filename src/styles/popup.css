@@ -118,7 +118,7 @@
 /* Media Queries */
 @media screen and (max-width: 800px) {
   .popup__window {
-    width: 90%;
+    width: 80%;
     max-width: none;
     padding: 15px;
   }
@@ -140,9 +140,9 @@
   };
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   .popup__window {
-    width: 95%;
+    width: 75%;
     padding: 10px;
   }
 
